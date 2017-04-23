@@ -1,0 +1,16 @@
+kernel/2.6/net/can/Kconfig
+kernel/2.6/net/can/Makefile.kernel Makefile
+kernel/2.6/net/can/compat.h
+kernel/2.6/net/can/af_can.c
+kernel/2.6/net/can/af_can.h
+kernel/2.6/net/can/proc.c
+kernel/2.6/net/can/raw.c
+kernel/2.6/net/can/bcm.c
+kernel/2.6/include/socketcan/can.h
+kernel/2.6/include/socketcan/can/core.h
+kernel/2.6/include/socketcan/can/error.h
+kernel/2.6/include/socketcan/can/raw.h
+kernel/2.6/include/socketcan/can/bcm.h
+kernel/2.6/drivers/net/can/Kconfig.kernel Kconfig
+kernel/2.6/drivers/net/can/Makefile.kernel Makefile
+kernel/2.6/drivers/net/can/vcan.c

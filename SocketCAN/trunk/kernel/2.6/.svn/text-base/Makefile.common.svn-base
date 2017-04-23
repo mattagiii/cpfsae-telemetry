@@ -1,0 +1,18 @@
+ifneq ($(KBUILD_EXTMOD),)
+
+EXTRA_CFLAGS += \
+	-I$(TOPDIR)/include \
+	-I$(TOPDIR)/drivers/net/can/hal \
+	\
+	-DETH_P_CAN=0x000C \
+	-DARPHRD_CAN=280
+
+ifneq ($(CONFIG_CAN_CALC_BITTIMING),n)
+EXTRA_CFLAGS += -DCONFIG_CAN_CALC_BITTIMING
+endif
+
+ifeq ($(CONFIG_CAN_DEBUG_DEVICES),y)
+EXTRA_CFLAGS += -DCONFIG_CAN_DEBUG_DEVICES
+endif
+
+endif

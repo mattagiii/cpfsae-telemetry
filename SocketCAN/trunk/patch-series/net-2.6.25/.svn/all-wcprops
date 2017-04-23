@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/rhyttr/SocketCAN/!svn/ver/490/trunk/patch-series/net-2.6.25
+END
+05-can-vcan-driver.diff
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/rhyttr/SocketCAN/!svn/ver/490/trunk/patch-series/net-2.6.25/05-can-vcan-driver.diff
+END
+04-can-bcm-proto.diff
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/rhyttr/SocketCAN/!svn/ver/490/trunk/patch-series/net-2.6.25/04-can-bcm-proto.diff
+END
+series
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/rhyttr/SocketCAN/!svn/ver/472/trunk/patch-series/net-2.6.25/series
+END
+intro
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/rhyttr/SocketCAN/!svn/ver/490/trunk/patch-series/net-2.6.25/intro
+END
+02-can-core.diff
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/rhyttr/SocketCAN/!svn/ver/490/trunk/patch-series/net-2.6.25/02-can-core.diff
+END
+07-can-doc.diff
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/rhyttr/SocketCAN/!svn/ver/490/trunk/patch-series/net-2.6.25/07-can-doc.diff
+END
+01-can-proto-numbers.diff
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/rhyttr/SocketCAN/!svn/ver/472/trunk/patch-series/net-2.6.25/01-can-proto-numbers.diff
+END
+03-can-raw-proto.diff
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/rhyttr/SocketCAN/!svn/ver/490/trunk/patch-series/net-2.6.25/03-can-raw-proto.diff
+END
+06-can-maintainers.diff
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/rhyttr/SocketCAN/!svn/ver/472/trunk/patch-series/net-2.6.25/06-can-maintainers.diff
+END

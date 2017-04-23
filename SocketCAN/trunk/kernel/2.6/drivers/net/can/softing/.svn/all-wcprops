@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/rhyttr/SocketCAN/!svn/ver/1040/trunk/kernel/2.6/drivers/net/can/softing
+END
+softing_fw.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/rhyttr/SocketCAN/!svn/ver/947/trunk/kernel/2.6/drivers/net/can/softing/softing_fw.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/rhyttr/SocketCAN/!svn/ver/839/trunk/kernel/2.6/drivers/net/can/softing/Makefile
+END
+softing_main.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/rhyttr/SocketCAN/!svn/ver/1040/trunk/kernel/2.6/drivers/net/can/softing/softing_main.c
+END
+softing.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/rhyttr/SocketCAN/!svn/ver/1040/trunk/kernel/2.6/drivers/net/can/softing/softing.h
+END
+softing_cs.c
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/rhyttr/SocketCAN/!svn/ver/952/trunk/kernel/2.6/drivers/net/can/softing/softing_cs.c
+END
+softing_sysfs.c
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/rhyttr/SocketCAN/!svn/ver/877/trunk/kernel/2.6/drivers/net/can/softing/softing_sysfs.c
+END

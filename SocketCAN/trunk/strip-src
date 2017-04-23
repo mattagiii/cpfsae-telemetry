@@ -1,0 +1,215 @@
+#!/usr/bin/perl
+#
+# $Id$
+#
+# Strip lines from sources files:
+#
+# * Eliminate CPP conditional compilation for different kernel version, i.e.
+#   eliminate all occurences of #if LINUX_VERSION_CODE < KERNEL_VERSION(...)
+#   and likewise for <=, >, >=, ==, and !=.
+#
+# * Eliminate all Subversion Id and RCSID() lines.
+#
+# Call the program as
+#
+#     strip-src [-v <version>] [-i] [-m] [-d] [<file>]
+#
+# The -v option will generate a source file for specified kernel version
+# where <version> is the kernel version you want the code to be generated
+# for, in the form <major>.<minor>.<patchlevel>.
+#
+# The -i option will strip all Subversion Id lines from the the source.
+#
+# The -m option will replace macros like ND2D with real variable name.
+#
+# The -d (debug) option will give you some output on what the program does.
+#
+# If <file> is given, read that source file, otherwise stdin.
+#
+# The result will be output on stdout.
+
+require("getopts.pl");
+
+$re_if = "^\\#if LINUX_VERSION_CODE (==|!=|<|<=|>|>=) " .
+    "KERNEL_VERSION\\((\\d+),(\\d+),(\\d+)\\)";
+$re_elif = "^\\#elif LINUX_VERSION_CODE (==|!=|<|<=|>|>=) " .
+    "KERNEL_VERSION\\((\\d+),(\\d+),(\\d+)\\)";
+
+Getopts("dimv:");
+$debug = $opt_d;
+
+if (defined($opt_v)) {
+    $version = $opt_v;
+}
+
+@lines = <>;
+unshift(@lines, "");
+
+if (defined($opt_v)) {
+    strip_kversion($opt_v);
+    replace_socketcan($opt_v);
+
+    if (defined($opt_m)) {
+	replace_macros($opt_v);
+    }
+}
+
+if (defined($opt_i)) {
+    strip_id();
+}
+
+for (@lines) {
+    print if (defined($_));
+}
+
+sub replace_socketcan {
+    my($i);
+
+    for $i (0..$#lines) {
+	$lines[$i] =~ s+socketcan/can+linux/can+g;
+    }
+}
+
+sub replace_macros {
+    my($version) = @_;
+    my($i);
+
+    $old = compare($version, "<", "2", "6", "21");
+
+    for $i (0..$#lines) {
+
+	if ($lines[$i] =~ /#define ND2D/) {
+	    delete_line($i, "<del>");
+	} else {
+	    if ($old) {
+		$lines[$i] =~ s/ND2D\(\b(\w+)\b\)/$1\->class_dev.dev/g;
+	    } else {
+		$lines[$i] =~ s/ND2D\(\b(\w+)\b\)/$1\->dev.parent/g;
+	    }
+	}
+    }
+}
+
+sub strip_id {
+    my($i);
+
+    for $i (0..$#lines) {
+
+	if ($lines[$i] =~ /include.*linux(\/can)?\/version\.h/) {
+	    delete_line($i, "<del>");
+	}
+
+	if ($lines[$i] =~ /RCSID/) {
+	    delete_line($i, "<del>");
+	    while ($lines[++$i] eq "\n") {
+		delete_line($i, "<skip>");
+	    }
+	}
+
+	if ($lines[$i] =~ /\$Id.*\$/) {
+	    delete_line($i, "<del>");
+	    while ($lines[++$i] eq " *\n") {
+		delete_line($i, "<skip>");
+	    }
+	}
+    }
+}
+
+sub strip_kversion {
+    my($version) = @_;
+    my(@states, @levels, @dones, $state, $level, $done, $skip, $i);
+
+    @levels = ();
+    @states = ();
+    $state  = 1;
+    $level  = 0;
+    $done   = 0;
+
+    for $i (1..$#lines) {
+	$_ = $lines[$i];
+	if ($state == 1 && /$re_if/) {
+	    $level++;
+	    unshift @levels, $level;
+	    unshift @states, $state;
+	    unshift @dones,  $done;
+	    $state = compare($version, $1, $2, $3, $4);
+	    $done  = $state;
+	    delete_line($i, "<del>");
+	    $skip = ($lines[$i-1] eq "\n");
+	} elsif ($level == $levels[0] && /$re_elif/) {
+	    $state = compare($version, $1, $2, $3, $4);
+	    $state &= !$done;
+	    $done  |= $state;
+	    delete_line($i, "<del>");
+	} elsif ($level == $levels[0] && /^\#else/) {
+	    $state  = !$done;
+	    $done  |= $state;
+	    delete_line($i, "<del>");
+	} elsif ($level == $levels[0] && /^\#endif/) {
+	    $state = shift @states;
+	    $done  = shift @dones;
+	    $level = shift @levels;
+	    $level--;
+	    delete_line($i, "<del>");
+
+	    while ($skip && $lines[$i+1] eq "\n") {
+		$i++;
+		delete_line($i, "<skip>");
+	    }
+	} elsif (/^\#if/) {
+	    $level++;
+	} elsif (/^\#endif/) {
+	    $level--;
+	}
+	if ($state == 1) {
+	    $skip = 0;
+	} else {
+	    delete_line($i, "<del>");
+	}
+    }
+}
+
+sub compare {
+    my($version, $op, $major, $minor, $patchlevel) = @_;
+
+    my($mj, $mn, $pl) = split(/\./, $version);
+
+    if ($op eq "==" && $mj == $major && $mn == $minor && $pl == $patchlevel) {
+	return 1;
+    } elsif ($op eq "!=" &&
+	     ($mj != $major || $mn != $minor || $pl != $patchlevel)) {
+	return 1;
+    } elsif ($op eq "<" &&
+	     ($mj < $major ||
+	      $mj == $major && ($mn < $minor ||
+				$mn == $minor && $pl < $patchlevel))) {
+	return 1;
+    } elsif ($op eq "<=" &&
+	     ($mj < $major ||
+	      $mj == $major && ($mn < $minor ||
+				$mn == $minor && $pl <= $patchlevel))) {
+	return 1;
+    } elsif ($op eq ">" &&
+	     ($mj > $major ||
+	      $mj == $major && ($mn > $minor ||
+				$mn == $minor && $pl > $patchlevel))) {
+	return 1;
+    } elsif ($op eq ">=" &&
+	     ($mj > $major ||
+	      $mj == $major && ($mn > $minor ||
+				$mn == $minor && $pl >= $patchlevel))) {
+	return 1;
+    } else {
+	return 0;
+    }
+}
+
+sub delete_line {
+    my($lineno, $dbg) = @_;
+
+    if ($debug) {
+	$lines[$lineno] = "$dbg\n";
+    } else {
+	undef($lines[$lineno]);
+    }
+}

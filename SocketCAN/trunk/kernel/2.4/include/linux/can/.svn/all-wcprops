@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/rhyttr/SocketCAN/!svn/ver/776/trunk/kernel/2.4/include/linux/can
+END
+version.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/rhyttr/SocketCAN/!svn/ver/526/trunk/kernel/2.4/include/linux/can/version.h
+END
+core.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/rhyttr/SocketCAN/!svn/ver/776/trunk/kernel/2.4/include/linux/can/core.h
+END
+error.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/rhyttr/SocketCAN/!svn/ver/526/trunk/kernel/2.4/include/linux/can/error.h
+END
+raw.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/rhyttr/SocketCAN/!svn/ver/526/trunk/kernel/2.4/include/linux/can/raw.h
+END
+ioctl.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/rhyttr/SocketCAN/!svn/ver/526/trunk/kernel/2.4/include/linux/can/ioctl.h
+END
+bcm.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/rhyttr/SocketCAN/!svn/ver/565/trunk/kernel/2.4/include/linux/can/bcm.h
+END

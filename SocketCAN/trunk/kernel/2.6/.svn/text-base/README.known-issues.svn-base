@@ -1,0 +1,17 @@
+This is a list of knwon driver issues:
+
+drivers/net/can/mcp251x.c:
+
+  FIXME: echo support missing (requilred for IFF_ECHO)
+  FIXME: increment can_stats in case of state changes
+  FIXME: state changes by interrupt
+  FIXME: do_set_mode not implemented (required for restart)
+  FIXME: remove tx timeout callback
+  FIXME: to be tested
+
+drivers/net/can/softing/softing_main.c:
+
+  FIXME: coding style issues!
+  FIXME: check softing_flush_echo_skb and bus_off handling.
+  FIXME: to be tested
+

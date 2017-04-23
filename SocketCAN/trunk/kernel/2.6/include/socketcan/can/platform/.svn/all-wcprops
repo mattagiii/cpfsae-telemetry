@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/rhyttr/SocketCAN/!svn/ver/922/trunk/kernel/2.6/include/socketcan/can/platform
+END
+sja1000.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/rhyttr/SocketCAN/!svn/ver/839/trunk/kernel/2.6/include/socketcan/can/platform/sja1000.h
+END
+mcp251x.h
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/rhyttr/SocketCAN/!svn/ver/922/trunk/kernel/2.6/include/socketcan/can/platform/mcp251x.h
+END

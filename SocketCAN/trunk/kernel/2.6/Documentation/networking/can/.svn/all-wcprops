@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/rhyttr/SocketCAN/!svn/ver/1048/trunk/kernel/2.6/Documentation/networking/can
+END
+can-drivers.txt
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/rhyttr/SocketCAN/!svn/ver/1047/trunk/kernel/2.6/Documentation/networking/can/can-drivers.txt
+END
+can-bcm.txt
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/rhyttr/SocketCAN/!svn/ver/1048/trunk/kernel/2.6/Documentation/networking/can/can-bcm.txt
+END
+overview.txt
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/rhyttr/SocketCAN/!svn/ver/1047/trunk/kernel/2.6/Documentation/networking/can/overview.txt
+END
+can-core.txt
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/rhyttr/SocketCAN/!svn/ver/1047/trunk/kernel/2.6/Documentation/networking/can/can-core.txt
+END
+can-raw.txt
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/rhyttr/SocketCAN/!svn/ver/1047/trunk/kernel/2.6/Documentation/networking/can/can-raw.txt
+END
+can-sockets.txt
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/rhyttr/SocketCAN/!svn/ver/1047/trunk/kernel/2.6/Documentation/networking/can/can-sockets.txt
+END

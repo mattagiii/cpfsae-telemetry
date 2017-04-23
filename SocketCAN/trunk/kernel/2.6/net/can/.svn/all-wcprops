@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/rhyttr/SocketCAN/!svn/ver/1046/trunk/kernel/2.6/net/can
+END
+raw.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/rhyttr/SocketCAN/!svn/ver/1045/trunk/kernel/2.6/net/can/raw.c
+END
+Makefile.kernel
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/rhyttr/SocketCAN/!svn/ver/311/trunk/kernel/2.6/net/can/Makefile.kernel
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/rhyttr/SocketCAN/!svn/ver/928/trunk/kernel/2.6/net/can/Makefile
+END
+af_can.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/rhyttr/SocketCAN/!svn/ver/839/trunk/kernel/2.6/net/can/af_can.h
+END
+bcm-prior-2-6-22.c
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/rhyttr/SocketCAN/!svn/ver/1043/trunk/kernel/2.6/net/can/bcm-prior-2-6-22.c
+END
+gw.c
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/rhyttr/SocketCAN/!svn/ver/1026/trunk/kernel/2.6/net/can/gw.c
+END
+isotp.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/rhyttr/SocketCAN/!svn/ver/1043/trunk/kernel/2.6/net/can/isotp.c
+END
+Kconfig
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/rhyttr/SocketCAN/!svn/ver/944/trunk/kernel/2.6/net/can/Kconfig
+END
+bcm.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/rhyttr/SocketCAN/!svn/ver/1046/trunk/kernel/2.6/net/can/bcm.c
+END
+proc.c
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/rhyttr/SocketCAN/!svn/ver/1046/trunk/kernel/2.6/net/can/proc.c
+END
+af_can.c
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/rhyttr/SocketCAN/!svn/ver/1044/trunk/kernel/2.6/net/can/af_can.c
+END
+compat.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/rhyttr/SocketCAN/!svn/ver/839/trunk/kernel/2.6/net/can/compat.h
+END

@@ -1,0 +1,191 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/rhyttr/SocketCAN/!svn/ver/1036/trunk/can-utils
+END
+canfdtest.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/rhyttr/SocketCAN/!svn/ver/889/trunk/can-utils/canfdtest.c
+END
+cansniffer.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rhyttr/SocketCAN/!svn/ver/758/trunk/can-utils/cansniffer.c
+END
+terminal.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/rhyttr/SocketCAN/!svn/ver/425/trunk/can-utils/terminal.h
+END
+slcan_attach.c
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/rhyttr/SocketCAN/!svn/ver/1031/trunk/can-utils/slcan_attach.c
+END
+.gitignore
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/rhyttr/SocketCAN/!svn/ver/985/trunk/can-utils/.gitignore
+END
+isotptun.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/rhyttr/SocketCAN/!svn/ver/891/trunk/can-utils/isotptun.c
+END
+cangen.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/rhyttr/SocketCAN/!svn/ver/1032/trunk/can-utils/cangen.c
+END
+slcanpty.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/rhyttr/SocketCAN/!svn/ver/808/trunk/can-utils/slcanpty.c
+END
+cangw.c
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/rhyttr/SocketCAN/!svn/ver/998/trunk/can-utils/cangw.c
+END
+GNUmakefile.am
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/rhyttr/SocketCAN/!svn/ver/985/trunk/can-utils/GNUmakefile.am
+END
+slcand.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/rhyttr/SocketCAN/!svn/ver/1029/trunk/can-utils/slcand.c
+END
+lib.c
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/rhyttr/SocketCAN/!svn/ver/1036/trunk/can-utils/lib.c
+END
+isotpsend.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rhyttr/SocketCAN/!svn/ver/1002/trunk/can-utils/isotpsend.c
+END
+lib.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/rhyttr/SocketCAN/!svn/ver/1036/trunk/can-utils/lib.h
+END
+isotpsniffer.c
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/rhyttr/SocketCAN/!svn/ver/758/trunk/can-utils/isotpsniffer.c
+END
+canbusload.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rhyttr/SocketCAN/!svn/ver/996/trunk/can-utils/canbusload.c
+END
+cansend.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/rhyttr/SocketCAN/!svn/ver/615/trunk/can-utils/cansend.c
+END
+isotprecv.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rhyttr/SocketCAN/!svn/ver/1002/trunk/can-utils/isotprecv.c
+END
+canplayer.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/rhyttr/SocketCAN/!svn/ver/980/trunk/can-utils/canplayer.c
+END
+configure.ac
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/rhyttr/SocketCAN/!svn/ver/975/trunk/can-utils/configure.ac
+END
+log2long.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/rhyttr/SocketCAN/!svn/ver/615/trunk/can-utils/log2long.c
+END
+isotpdump.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/rhyttr/SocketCAN/!svn/ver/758/trunk/can-utils/isotpdump.c
+END
+isotpserver.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/rhyttr/SocketCAN/!svn/ver/978/trunk/can-utils/isotpserver.c
+END
+candump.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/rhyttr/SocketCAN/!svn/ver/1035/trunk/can-utils/candump.c
+END
+bcmserver.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/rhyttr/SocketCAN/!svn/ver/851/trunk/can-utils/bcmserver.c
+END
+log2asc.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/rhyttr/SocketCAN/!svn/ver/758/trunk/can-utils/log2asc.c
+END
+asc2log.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/rhyttr/SocketCAN/!svn/ver/977/trunk/can-utils/asc2log.c
+END
+autogen.sh
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/rhyttr/SocketCAN/!svn/ver/975/trunk/can-utils/autogen.sh
+END
+canlogserver.c
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/rhyttr/SocketCAN/!svn/ver/615/trunk/can-utils/canlogserver.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/rhyttr/SocketCAN/!svn/ver/985/trunk/can-utils/Makefile
+END
+can-calc-bit-timing.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/rhyttr/SocketCAN/!svn/ver/991/trunk/can-utils/can-calc-bit-timing.c
+END
