@@ -1,0 +1,3 @@
+#!/bin/bash
+
+top -d 1 -H -o %CPU

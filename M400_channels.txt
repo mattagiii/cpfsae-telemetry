@@ -1,0 +1,4 @@
+RPM: 0 RPM
+ThrottlePosition: 5.0 %
+ManifoldPressure: 0.1 kPa
+BatteryVoltage: 11.64 V
