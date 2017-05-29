@@ -1,0 +1,74 @@
+<!doctype html>
+
+<html>
+<head>
+   <title>Telemetry Module</title>
+   <link rel="stylesheet" type="text/css" href="css/global.css">
+   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+   <script src="/socket.io/socket.io.js"></script>
+   <script src="js/telemetryClient.js"></script>
+   <script src="js/bootstrap.min.js"></script>
+</head>
+
+<body>
+   <header class="container-fluid">
+      <div class="navbar">
+         <!-- Nav tabs -->
+         <ul class="nav nav-tabs" role="tablist">
+            <a class="navbar-brand">
+               <img src="img/cpracing_black.png" style="height:26px;">
+            </a>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#main" role="tab">Main</a></li>
+            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#all_channels" role="tab">All Channels</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a></li>
+         </ul>
+      </div>
+   </header>
+   <div class="container-fluid">
+      <!-- Tab panes -->
+      <div class="tab-content">
+         <div class="tab-pane" id="main" role="tabpanel">
+
+         </div>
+         <div class="tab-pane active" id="all_channels" role="tabpanel">
+            <table class="table table-sm table-striped table-hover">
+               <thead>
+                  <tr>
+                     <th>#</th>
+                     <th>Name</th>
+                     <th>Value</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr id="BatteryVoltage">
+                     <th scope="row">1</th>
+                     <td class="chan_name">BatteryVoltage</td>
+                     <td class="chan_val">11.87 V</td>
+                  </tr>
+                  <tr id="RPM">
+                     <th scope="row">2</th>
+                     <td class="chan_name">RPM</td>
+                     <td class="chan_val">0 RPM</td>
+                  </tr>
+                  <tr id="ThrottlePosition">
+                     <th scope="row">3</th>
+                     <td class="chan_name">ThrottlePosition</td>
+                     <td class="chan_val">5.0 %</td>
+                  </tr>
+                  <tr id="ManifoldPressure">
+                     <th scope="row">4</th>
+                     <td class="chan_name">ManifoldPressure</td>
+                     <td class="chan_val">0.0 kPa</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="tab-pane" id="settings" role="tabpanel">
+
+         </div>
+      </div>
+   </div>
+</body>
+
+</html>
