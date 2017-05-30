@@ -1,0 +1,18 @@
+{"channels" : [
+   {
+      "name" : "RPM",
+      "value" : "0 RPM"
+   },
+   {
+      "name" : "ThrottlePosition",
+      "value" : "5.0 %"
+   },
+   {
+      "name" : "ManifoldPressure",
+      "value" : "0.1 kPa"
+   },
+   {
+      "name" : "BatteryVoltage",
+      "value" : "11.88 V"
+   }
+]}

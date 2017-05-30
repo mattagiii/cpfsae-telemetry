@@ -7,6 +7,7 @@
  * Last Updated: May 19, 2017
  */
 
+#include <errno.h>
 #include <fcntl.h>
 #include <linux/can.h>
 #include <linux/can/raw.h>
@@ -21,7 +22,7 @@
 
 #include "acquire.h"
 
-int soc, read_can_port = 1, update = 1, all_channels_valid = 0;
+int s, read_can_port = 1, update = 1, all_channels_valid = 0;
 
 // An array of "channels", which each represent a measured value from one of
 // the devices on the vehicle network
@@ -34,15 +35,22 @@ channel channels[] = {
 
 // Opens a CAN socket and binds it to the network interface described by "port"
 int open_port(const char *port) {
-   struct ifreq ifr;
+   int b;
+   //struct ifreq ifr;
    struct sockaddr_can addr;
 
-   // open socket
-   soc = socket(PF_CAN, SOCK_RAW, CAN_RAW);
-   if(soc < 0) { return (-1); }
+   errno = 0;
+   s = socket(PF_CAN, SOCK_RAW, CAN_RAW);
+   if (s < 0) {
+      printf("Error creating socket: %s\n", strerror(errno));
+      return -1;
+   }
+   /*else
+      printf("Socket created: %d\n", s);
+   fflush(stdout);*/
 
    addr.can_family = AF_CAN;
-   strcpy(ifr.ifr_name, port);
+   //strcpy(ifr.ifr_name, port);
 
    // get the interface index for port (can0)
    // the ioctl is the only way to get the actual interface number for a
@@ -50,10 +58,19 @@ int open_port(const char *port) {
    // ANY open socket (though SIOCGIFINDEX will not use this), as well as the
    // ifreq structure containing the interface string name in ifr.ifr_name.
    // the real interface number is then placed into ifr.ifr_ifindex.
-   if (ioctl(soc, SIOCGIFINDEX, &ifr) < 0) { return (-1); }
-   addr.can_ifindex = ifr.ifr_ifindex;
-   fcntl(soc, F_SETFL, O_NONBLOCK);
-   if (bind(soc, (struct sockaddr *)&addr, sizeof(addr)) < 0) { return (-1); }
+   //if (ioctl(s, SIOCGIFINDEX, &ifr) < 0) { return (-1); }
+   addr.can_ifindex = 0;
+   //fcntl(s, F_SETFL, O_NONBLOCK);
+
+   errno = 0;
+   b = bind(s, (struct sockaddr *)&addr, sizeof(addr));
+   if (b != 0) {
+      printf("Error binding: %s\n", strerror(errno));
+      return -1;
+   }
+   /*else
+      printf("Bound: %d\n", b);
+   fflush(stdout);*/
 
    return 0;
 }
@@ -61,7 +78,7 @@ int open_port(const char *port) {
 // Stub for future bidirectional communication. Currently no frames are sent.
 int send_port(struct can_frame *frame) {
    int retval;
-   retval = write(soc, frame, sizeof(struct can_frame));
+   retval = write(s, frame, sizeof(struct can_frame));
    if (retval != sizeof(struct can_frame)) {
       return (-1);
    }
@@ -77,71 +94,55 @@ int send_port(struct can_frame *frame) {
 // control unit). The channel array is updated accordingly.)
 void * read_port(void *arg) {
    struct can_frame frame_rd;
-   struct timeval timeout = {1, 0};
-   // 1000000 too slow for bus - 17% CPU
-   // 500000  getting all M400 - 23% CPU
-   // 100000  seems good       - 22% CPU
-   // 10000   to be safe       - 36% CPU
-   struct timespec sleep_timeout = {0, 500000}; // (s, ns) (500us)
-   fd_set readSet;
    int recvbytes = 0, i, byteOffset = -1, nextOffset, ch_idx = 0;
    int numChannels = sizeof(channels) / sizeof(channel);
 
    while (read_can_port) {
-      FD_ZERO(&readSet);
-      FD_SET(soc, &readSet);
 
-      nanosleep(&sleep_timeout, NULL);
+      errno = 0;
+      recvbytes = read(s, &frame_rd, sizeof(struct can_frame));
+      if (recvbytes < 0)
+         printf("Error reading: %s\n", strerror(errno));
+      /*else
+         printf("Read this many bytes: %d\n", recvbytes);
+      fflush(stdout);*/
 
-      if (select((soc + 1), &readSet, NULL, NULL, &timeout) >= 0) {
-         //printf("0"); // for checking that polling speed is fast enough
-         if (!read_can_port) { break; }
+      if (frame_rd.can_id == M400_ID) {
+         nextOffset = channels[ch_idx].offset;
 
-         if (FD_ISSET(soc, &readSet)) {
-            //printf("1"); // for checking that polling speed is fast enough
-            recvbytes = read(soc, &frame_rd, sizeof(struct can_frame));
+         // iterate through bytes of current frame
+         for (i = 0; i < frame_rd.can_dlc; i++) {
 
-            if (recvbytes) {
+            if (byteOffset == nextOffset) {
+               memcpy(&(channels[ch_idx].value), &(frame_rd.data[i]), channels[ch_idx].nBytes);
+               if (ch_idx == numChannels-1)
+                  ch_idx = 0;
+               else
+                  ch_idx++;
 
-               if (frame_rd.can_id == M400_ID) {
-                  nextOffset = channels[ch_idx].offset;
-
-                  // iterate through bytes of current frame
-                  for (i = 0; i < frame_rd.can_dlc; i++) {
-
-                     if (byteOffset == nextOffset) {
-                        memcpy(&(channels[ch_idx].value), &(frame_rd.data[i]), channels[ch_idx].nBytes);
-                        if (ch_idx == numChannels-1)
-                           ch_idx = 0;
-                        else
-                           ch_idx++;
-
-                        // tell update_file that it may begin writing
-                        if (nextOffset == channels[numChannels].offset) {
-                           all_channels_valid = 1;
-                        }
-
-                        nextOffset = channels[ch_idx].offset;
-                     }
-                     byteOffset++;
-                  }
-
-                  if (frame_rd.data[4] == 0xFC && \
-                      frame_rd.data[5] == 0xFB && \
-                      frame_rd.data[6] == 0xFA) {
-                     byteOffset = 0;
-                  }
+               // tell update_file that it may begin writing
+               if (nextOffset == channels[numChannels].offset) {
+                  all_channels_valid = 1;
                }
+
+               nextOffset = channels[ch_idx].offset;
             }
+            byteOffset++;
          }
-      }
-   }
+
+         if (frame_rd.data[4] == 0xFC && \
+             frame_rd.data[5] == 0xFB && \
+             frame_rd.data[6] == 0xFA) {
+            byteOffset = 0;
+         }
+      } // frame_rd.can_id == M400_ID
+   } // read_can_port
    pthread_exit(NULL);
 }
 
 // Closes the CAN socket
 int close_port() {
-   close(soc);
+   close(s);
    return 0;
 }
 
@@ -212,8 +213,6 @@ int main(void) {
       printf("ERROR; return code from pthread_create() is %d\n", rc2);
       exit(-1);
    }
-
-   close_port();
 
    // exit properly so that worker threads continue to run
    pthread_exit(NULL);

@@ -1,0 +1,14 @@
+{
+  "name": "serve",
+  "version": "1.0.0",
+  "description": "Reads sensor channel information from the ../acquire/acquire program and updates it in real time on a web interface",
+  "main": "serve.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matt Rounds",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^2.0.1"
+  }
+}
