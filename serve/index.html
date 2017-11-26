@@ -1,37 +1,103 @@
 <!doctype html>
 
+<!--
+ - index.html
+ - User interface for the Telemetry System.
+ -
+ - Created by: Matt Rounds
+ - Last updated: Nov. 26, 2017
+-->
+
 <html>
 <head>
-   <title>Telemetry Module</title>
+   <title>Telemetry System</title>
+   <!-- custom styles on top of bootstrap -->
    <link rel="stylesheet" type="text/css" href="css/global.css">
    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="css/dygraph.css">
+   <script src="js/jquery-3.2.1.min.js"></script>
+   <script src="js/dygraph.min.js"></script>
    <script src="/socket.io/socket.io.js"></script>
    <script src="js/telemetryClient.js"></script>
-   <script src="js/bootstrap.min.js"></script>
+   <script src="js/visualizations.js"></script>
+   <!-- bundle includes popper.js tooltip code -->
+   <script src="js/bootstrap.bundle.min.js"></script>
+   <!-- Android and iOS web app enhancements -->
+   <link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
+   <link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png">
+   <link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
+   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-icon-76x76.png">
+   <link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png">
+   <link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-icon-120x120.png">
+   <link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-icon-144x144.png">
+   <link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-icon-152x152.png">
+   <link rel="apple-touch-icon" sizes="180x180" href="/img/favicon/apple-icon-180x180.png">
+   <link rel="icon" type="image/png" sizes="192x192"  href="/img/favicon/android-icon-192x192.png">
+   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
+   <link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png">
+   <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
+   <link rel="manifest" href="/img/favicon/manifest.json">
+   <meta name="theme-color" content="#0275d8">
+   <!-- END Android and iOS web app enhancements -->
 </head>
 
 <body>
-   <header class="container-fluid">
-      <div class="navbar">
-         <!-- Nav tabs -->
-         <ul class="nav nav-tabs" role="tablist">
-            <a class="navbar-brand">
-               <img src="img/cpracing_black.png" style="height:26px;">
-            </a>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#main" role="tab">Main</a></li>
-            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#all_channels" role="tab">All Channels</a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a></li>
-         </ul>
-      </div>
+   <header>
+      <ul class="nav nav-tabs" role="tablist">
+         <a class="navbar-brand">
+            <img src="img/cpracing_black.png" style="height:26px;">
+         </a>
+         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#mainx" role="tab">Main</a></li>
+         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#all_channels" role="tab">All Channels</a></li>
+         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a></li>
+         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#help" role="tab">Help</a></li>
+      </ul>
    </header>
    <div class="container-fluid">
       <!-- Tab panes -->
-      <div class="tab-content">
-         <div class="tab-pane" id="main" role="tabpanel">
+      <div class="row tab-content">
+         <div class="col-12 tab-pane active" id="mainx" role="tabpanel">
+            <!-- create more of these for additional graphs -->
+            <div class="data-vis">
+               <div id="gThrottlePositionLive" data-vis="linechart" data-dev="M400" data-channel="2" data-opt='{
+                  "valueRange":["0.0", "100.0"],
+                  "labels":["Time", "ThrottlePosition"],
+                  "legend":"always",
+                  "strokeWidth":"3.0",
+                  "color":"#0275d8"
+               }' style="width:100%"></div>
+
+               <span>History length (s): </span>
+               <input type="number" class="tLim" min="5" max="200" step="5" value="20"/>
+               <span>Y lower bound: </span>
+               <input type="number" class="lBound" step="5" onchange="handleScaling(this)"/>
+               <span>Y upper bound: </span>
+               <input type="number" class="uBound" step="5" onchange="handleScaling(this)"/>
+               <button type="button" class="btn btn-primary pauseBtn" onclick="handlePauseBtn(this)" value="Unpause">Pause</button>
+               <button type="button" class="btn btn-primary autoscaleBtn" onclick="handleAutoscaleBtn(this)">Autoscale</button>
+            </div>
+
+            <div class="data-vis">
+               <div id="gBatteryVoltageLive" data-vis="linechart" data-dev="M400" data-channel="9" data-opt='{
+                  "valueRange":["5.0", "15.0"],
+                  "labels":["Time", "BatteryVoltage"],
+                  "legend":"always",
+                  "strokeWidth":"3.0",
+                  "color":"#0275d8"
+               }' style="width:100%"></div>
+
+               <span>History length (s): </span>
+               <input type="number" class="tLim" min="5" max="200" step="5" value="20"/>
+               <span>Y lower bound: </span>
+               <input type="number" class="lBound" step="1" onchange="handleScaling(this)"/>
+               <span>Y upper bound: </span>
+               <input type="number" class="uBound" step="1" onchange="handleScaling(this)"/>
+               <button type="button" class="btn btn-primary pauseBtn" onclick="handlePauseBtn(this)" value="Unpause">Pause</button>
+               <button type="button" class="btn btn-primary autoscaleBtn" onclick="handleAutoscaleBtn(this)">Autoscale</button>
+            </div>
 
          </div>
-         <div class="tab-pane active" id="all_channels" role="tabpanel">
+         <div class="col-12 tab-pane" id="all_channels" role="tabpanel">
             <table class="table table-sm table-striped table-hover">
                <thead>
                   <tr>
@@ -40,32 +106,22 @@
                      <th>Value</th>
                   </tr>
                </thead>
-               <tbody>
-                  <tr id="BatteryVoltage">
-                     <th scope="row">1</th>
-                     <td class="chan_name">BatteryVoltage</td>
-                     <td class="chan_val">11.87 V</td>
-                  </tr>
-                  <tr id="RPM">
-                     <th scope="row">2</th>
-                     <td class="chan_name">RPM</td>
-                     <td class="chan_val">0 RPM</td>
-                  </tr>
-                  <tr id="ThrottlePosition">
-                     <th scope="row">3</th>
-                     <td class="chan_name">ThrottlePosition</td>
-                     <td class="chan_val">5.0 %</td>
-                  </tr>
-                  <tr id="ManifoldPressure">
-                     <th scope="row">4</th>
-                     <td class="chan_name">ManifoldPressure</td>
-                     <td class="chan_val">0.0 kPa</td>
+               <tbody id="allChannelsTBody">
+                  <tr id="defaultRow">
+                     <th scope="row"></th>
+                     <td class="chan_name"></td>
+                     <td class="chan_val"></td>
                   </tr>
                </tbody>
             </table>
          </div>
-         <div class="tab-pane" id="settings" role="tabpanel">
-
+         <div class="col-12 tab-pane" id="settings" role="tabpanel">
+            <p>Nothing here (yet)</p>
+         </div>
+         <div class="col-12 tab-pane" id="help" role="tabpanel">
+            <p><strong>Tip:</strong> If you're using Chrome on mobile, add this web app to your home screen for a slightly more seamless experience. To do this, open Chrome's menu and tap "Add to Home screen".</p>
+            <p><strong>Tip:</strong> To reset the bounds for a graph, just double-click anywhere inside it. Double-tap on mobile.</p>
+            <p><strong>Interacting with the graphs on mobile:</strong> Pinch-to-zoom and panning with your finger is supported, but be sure to pause the data first or it will be overwritten.</p>
          </div>
       </div>
    </div>

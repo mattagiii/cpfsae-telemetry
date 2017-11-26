@@ -1,0 +1,3 @@
+#!/bin/bash
+
+watch -d -n 0.1 'cat /root/cpfsae-telemetry/acquire/telemChannels.json'

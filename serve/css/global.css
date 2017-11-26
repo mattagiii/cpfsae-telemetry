@@ -1,5 +1,27 @@
-html {
-   height: 100vh;
-   width: 100vw;
-   overflow: hidden;
+header {
+   margin-bottom: 15px;
+}
+
+.nav-tabs {
+   padding-top: 15px !important;
+   padding-left: 15px !important;
+   padding-right: 15px !important;
+}
+
+.dygraph-legend {
+   background-color: rgba(255,255,255,0.5)
+}
+
+input[type="number"] {
+   width: 80px;
+}
+
+.data-vis {
+   margin-top: 30px;
+   margin-bottom: 20px;
+}
+
+[data-vis] {
+   margin-top: 20px;
+   margin-bottom: 20px;
 }

@@ -1,22 +1,24 @@
-/* serve.js
- * Monitors CAN data values stored by ../acquire/acquire and updates/serves a
- * webpage to display the values.
- *
- * Created by: Matt Rounds
- * Last Updated: May 19, 2017
-*/
+#!/usr/bin/env node
+// the above shebang line allows serve.js to be executed directly (instead of
+// the command "node serve.js")
 
-/* Load Modules */
+// serve.js
+// Monitors CAN data values stored by ../acquire/acquire and updates/serves a
+// webpage to display the values.
+//
+// Created by: Matt Rounds
+// Last updated: Nov 25, 2017
+
+// load modules
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
+var fileAvailable = 0;
+var telemChannelFile = '../acquire/telemChannels.json';
 
-var M400_file = '../acquire/M400_channels.json';
-
-/* Initialize Server on Port 80 */
+// initialize server on port 80
 var server = http.createServer(function (req, res) {
    // process URL and set default content type and encoding
-   console.log(req.url);
    var file = '.' + ((req.url == '/') ? '/index.html' : req.url);
    var fileExtension = path.extname(file);
    var contentType = 'text/html';
@@ -51,21 +53,26 @@ var server = http.createServer(function (req, res) {
 // load socket.io module
 var io = require('socket.io').listen(server);
 
-// print messages to console when users connect
-io.on('connection', function (socket) {
+// monitor the channel JSON file and send its data on the socket when modified.
+// this is only a function so that it can call itself again in the event of an
+// error. this is the easiest way to wait if acquire has not created the JSON
+// file yet. currently no check is performed to make sure that the file contains
+// valid data; it is assumed that acquire will only send a properly formatted
+// file
+function watchChannelFile () {
+   try {
+      fs.watch(telemChannelFile, (eventType, filename) => {
 
-   console.log('A user connected');
+         var telemChannelText = fs.readFileSync(telemChannelFile, 'utf8');
 
-   socket.on('disconnect', function () {
-      console.log('A user disconnected');
-   });
-});
+         if (telemChannelText)
+            io.emit('telemChannelData', telemChannelText);
 
-// monitor the channel JSON file and send its data on the socket when modified
-fs.watch(M400_file, (eventType, filename) => {
+      });
+   } catch (err) {
+      console.log("Channel file unavailable. Trying again in 1s...")
+      setTimeout(watchChannelFile, 1000);
+   }
+}
 
-   var M400_text = fs.readFileSync(M400_file, 'utf8');
-
-   io.emit('M400_data', M400_text);
-
-});
+watchChannelFile();
