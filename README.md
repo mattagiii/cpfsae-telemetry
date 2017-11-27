@@ -10,6 +10,4 @@ The system is unique in that this data is provided through a web interface. This
 A Debian Linux-powered BeagleBone Black microcomputer is the heart of the system; it runs a C program to interpret CAN data frames and a web server to display the data in real time. An Ubiquiti AirGateway LR wireless access point is connected to the BeagleBone using Ethernet, and this access point allows any number of devices to connect to the web server.
 
 ## Complete Project Report
-The report for this project provides many more details. It can be found here: <p><a href="https://docs.google.com/document/d/1z2uWAGIEsSnG0PktTVHk5ej-sA3QeC9OkyvsWds6SQc/edit?usp=sharing" target="_blank">Formula SAE Telemetry System Report</a></p>
-
-[Formula SAE Telemetry System Report](https://docs.google.com/document/d/1z2uWAGIEsSnG0PktTVHk5ej-sA3QeC9OkyvsWds6SQc/edit?usp=sharing){:target="_blank"}
+The report for this project provides many more details. It can be found here: [Formula SAE Telemetry System Report](https://docs.google.com/document/d/1z2uWAGIEsSnG0PktTVHk5ej-sA3QeC9OkyvsWds6SQc/edit?usp=sharing)
