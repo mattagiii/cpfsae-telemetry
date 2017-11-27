@@ -11,3 +11,5 @@ A Debian Linux-powered BeagleBone Black microcomputer is the heart of the system
 
 ## Complete Project Report
 The report for this project provides many more details. It can be found here: <a href="https://docs.google.com/document/d/1z2uWAGIEsSnG0PktTVHk5ej-sA3QeC9OkyvsWds6SQc/edit?usp=sharing" target="_blank">[Formula SAE Telemetry System Report</a>
+
+[Formula SAE Telemetry System Report](https://docs.google.com/document/d/1z2uWAGIEsSnG0PktTVHk5ej-sA3QeC9OkyvsWds6SQc/edit?usp=sharing){:target="_blank"}
