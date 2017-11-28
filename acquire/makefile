@@ -1,8 +1,7 @@
 # makefile
 # makefile for acquire CAN frame acquisition service
 #
-# Created by: Matt Rounds
-# Last updated: Nov 26, 2017
+# Copyright (C) 2017 Matt Rounds
 
 # set our compiler to gcc
 CC = gcc
