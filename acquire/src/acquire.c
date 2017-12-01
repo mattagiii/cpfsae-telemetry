@@ -137,7 +137,6 @@ void * read_soc(void *arg) {
       // to the channel struct to conditionally avoid the int64 cast below
       if (frame_rd.can_id == M400_ID) {
          nextOffset = channels[ch_idx].offset;
-         printf("got a frame\n");
          // iterate through bytes of current frame
          for (i = 0; i < frame_rd.can_dlc; i++) {
             // nextOffset will always be the offset of the next channel, so we
